@@ -1,5 +1,7 @@
 from cryptography.fernet import Fernet
 import os
+from colorama import Fore, init
+init(autoreset=True)
 
 def generate_key():
     return Fernet.generate_key()
@@ -35,20 +37,20 @@ def main():
     key = load_key(key_file)
 
     while True:
-        choice = input("Ne yapmak istersiniz? (encrypt/decrypt/exit): ").lower()
+        choice = input( Fore.CYAN +"Ne yapmak istersiniz?" +  Fore.RED + "(encrypt" + " / " + Fore.BLUE + " decrypt " + " / "+Fore.MAGENTA+"exit"+"):").lower()
         
         if choice == 'encrypt':
-            file_path = input("Şifrelemek istediğiniz dosyanın yolunu girin: ")
+            file_path = input( Fore.RED +"Şifrelemek istediğiniz dosyanın yolunu girin: ")
             encrypt_file(file_path, key)
-            print("Dosya başarıyla şifrelendi.")
+            print(Fore.RED + "[+] Dosya başarıyla şifrelendi.")
         elif choice == 'decrypt':
-            file_path = input("Çözmek istediğiniz dosyanın yolunu girin: ")
+            file_path = input(Fore.GREEN + "Çözmek istediğiniz dosyanın yolunu girin: ")
             decrypt_file(file_path, key)
-            print("Dosya başarıyla çözüldü.")
+            print(Fore.GREEN +"[+] Dosya başarıyla çözüldü.")
         elif choice == 'exit':
             break
         else:
-            print("Geçersiz bir seçenek girdiniz.")
+            print(Fore.RED +"[-] Geçersiz bir seçenek girdiniz.")
 
 if __name__ == "__main__":
     main()
